@@ -5,7 +5,7 @@ services:
     region: oregon
     plan: free
     runtime: python-3.11
-    buildCommand: cd backend && pip install --upgrade pip setuptools wheel build && pip install -r requirements.txt
+    buildCommand: cd backend && mkdir -p /tmp/cargo/registry/cache /tmp/cargo/registry/index /tmp/rustup && export CARGO_HOME=/tmp/cargo RUSTUP_HOME=/tmp/rustup PIP_CACHE_DIR=/tmp/pip-cache && pip install --upgrade pip setuptools wheel && pip install --cache-dir /tmp/pip-cache --prefer-binary -r requirements.txt
     startCommand: cd backend && gunicorn wsgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --workers 2 --timeout 30
     
     envVars:
