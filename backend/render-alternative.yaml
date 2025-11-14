@@ -1,10 +1,15 @@
+# Alternative render.yaml if rootDir doesn't work
+# Copy this configuration if you still get the requirements.txt error
+
 services:
   - type: web
     name: slam-buddy-backend
     env: python
     region: oregon
     plan: free
-    buildCommand: cd backend && pip install --upgrade pip setuptools wheel build && pip install -r requirements.txt
+    # Remove rootDir if it's causing issues
+    rootDir: ./
+    buildCommand: cd backend && pip install -r requirements.txt
     startCommand: cd backend && gunicorn wsgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --workers 2 --timeout 30
     envVars:
       - key: DATABASE_URL

@@ -100,6 +100,8 @@ openssl rand -hex 32
 
 **Dockerfile Path:** Leave empty (using build command)
 
+**Manual Deploy Hook:** See `DEPLOYMENT_HOOKS.md` for deploy hook URL to trigger manual deployments.
+
 ---
 
 ## Quick Checklist
