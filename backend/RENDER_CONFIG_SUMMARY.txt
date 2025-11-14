@@ -1,0 +1,57 @@
+========================================
+RENDER DEPLOYMENT CONFIGURATION SUMMARY
+========================================
+
+Copy and paste these values into your Render dashboard:
+
+---
+
+SERVICE TYPE:
+-------------
+Web Service
+
+---
+
+BASIC SETTINGS:
+---------------
+Name: slam-buddy-backend
+Language: Python 3  ⚠️ CHANGE FROM "Node"!
+Branch: main
+Region: Oregon (US West)
+Root Directory: backend  ⚠️ IMPORTANT!
+
+---
+
+BUILD & START COMMANDS:
+-----------------------
+Build Command:
+pip install -r requirements.txt
+
+Start Command:
+gunicorn wsgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --workers 2 --timeout 30
+
+Health Check Path:
+/health
+
+---
+
+ENVIRONMENT VARIABLES:
+----------------------
+DATABASE_URL = (from Render PostgreSQL Internal URL)
+SECRET_KEY = (generate with: openssl rand -hex 32)
+CORS_ORIGINS = https://your-frontend.onrender.com
+ALGORITHM = HS256
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+---
+
+CRITICAL NOTES:
+---------------
+1. ⚠️ Change Language from "Node" to "Python 3"
+2. ⚠️ Set Root Directory to "backend"
+3. ⚠️ Use the correct Start Command (not the default WSGI one)
+4. ✅ Make sure PostgreSQL database is created first
+5. ✅ Use Internal Database URL (not External)
+
+========================================
+
